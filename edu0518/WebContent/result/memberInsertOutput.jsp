@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원 정보 입력</title>
 </head>
 <body>
 
-	${id} : LogIn Success!! <br>
+	<h3>${id} : LogIn Success!!</h3> <br>
 	
 	<%@ include file="home.jsp" %>
 

@@ -27,7 +27,7 @@ public class MemberInsertController implements Controller {
 		service.memberInsert(member);
 		
 		request.setAttribute("id", id);
-		HttpUtil.forward(request, response, "/result/MemberInsertOutput.jsp");
+		HttpUtil.forward(request, response, "/result/memberInsertOutput.jsp");
 	}
 
 }

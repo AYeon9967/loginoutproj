@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import com.dev.vo.MemberVO;
 
@@ -116,5 +117,48 @@ public class MemberDAO {
 			close(conn, pstmt);
 		}
 	}
+	
+	public void memberDelete(String id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = connect();
+			pstmt = conn.prepareStatement("delete from member where id=?;");
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			System.out.print("MDAO: mDelete error " + e);
+		} finally {
+			close(conn, pstmt);
+		}
+	}
+	
+	public ArrayList<MemberVO> memberList() {
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberVO member = null;
+		
+		try {
+			conn = connect();
+			pstmt = conn.prepareStatement("select * from member;");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				member = new MemberVO();
+				member.setId(rs.getString(1));
+				member.setPwd(rs.getString(2));
+				member.setName(rs.getString(3));
+				list.add(member);
+				}
+		} catch(Exception e) {
+				System.out.print("MDAO: mList error " + e);
+		} finally {
+			close(conn, pstmt, rs);
+		}
+		return list;
+	}
+		
 	
 }
